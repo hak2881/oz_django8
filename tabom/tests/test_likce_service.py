@@ -26,9 +26,11 @@ class TestLikeService(TestCase):
 
         # Expect
         like1 = do_like(user.id, article.id)
-        # with self.assertRaises(Exception):  # with 블록안에 에러가 일어 나나 안나나 확인, 에러가 있으면 통과 에러가 없으면 불통
-        #     like2 = do_like(user.id, article.id)
-        try:
+        with self.assertRaises(
+            Exception
+        ):  # with 블록안에 에러가 일어 나나 안나나 확인, 에러가 있으면 통과 에러가 없으면 불통
             like2 = do_like(user.id, article.id)
-        except Exception as e:
-            print(e)
+        # try:
+        #     like2 = do_like(user.id, article.id)
+        # except Exception as e:
+        #     print(e)
