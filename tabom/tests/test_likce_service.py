@@ -105,7 +105,7 @@ class TestLikeService(TestCase):
         like = Like.objects.create(user_id=user.id, article_id=article.id)
 
         # When
-        with self.assertNumQueries(2): # 예상 쿼리 가 맞는지 확인
+        with self.assertNumQueries(2):  # 예상 쿼리 가 맞는지 확인
             undo_like(user.id, article.id)
 
         # Then

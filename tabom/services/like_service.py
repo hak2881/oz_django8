@@ -22,6 +22,3 @@ def undo_like(user_id: int, article_id: int) -> None:
     # LIMIT 2
     # 많으면 Multiple, 없으면 DoesNotExist
     like = Like.objects.filter(user_id=user_id, article_id=article_id).get().delete()
-
-
-
