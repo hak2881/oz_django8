@@ -1,8 +1,17 @@
+from django.core.exceptions import BadRequest
+from django.db import IntegrityError
+
 from tabom.models import Article, Like, User
 
 
 def do_like(user_id: int, article_id: int) -> Like:
     # user = User.objects.get(id=user_id)  # User 객체 가져오기
     # article = Article.objects.get(id=article_id)  # Article 객체 가져오기
-
-    return Like.objects.create(user_id=user_id, article_id=article_id)  # 객체로 저장
+    try:
+        return Like.objects.create(user_id=user_id, article_id=article_id)
+    except IntegrityError as e:
+        if "FOREIGN KEY (`user_id`)" in e.args[1]:
+            raise BadRequest(f"없는 user_id 입니다: {user_id}")
+        if "FOREIGN KEY (`article_id`)" in e.args[1]:
+            raise BadRequest(f"없는 article_id 입니다: {article_id}")
+        raise
