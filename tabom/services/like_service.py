@@ -15,3 +15,13 @@ def do_like(user_id: int, article_id: int) -> Like:
         if "FOREIGN KEY (`article_id`)" in e.args[1]:
             raise BadRequest(f"없는 article_id 입니다: {article_id}")
         raise
+
+
+def undo_like(user_id: int, article_id: int) -> None:
+
+    # LIMIT 2
+    # 많으면 Multiple, 없으면 DoesNotExist
+    like = Like.objects.filter(user_id=user_id, article_id=article_id).get().delete()
+
+
+
